@@ -36,7 +36,22 @@ export const borrarTarrea = async (req, res) => {
     }
     res.status(200).json({ mensaje: "Tarea eliminida correctamente👍" });
   } catch (error) {
-    console.error(error)
+    console.error(error);
     res.status(500).json({ mensaje: "Error al eliminar tarea✖️" });
+  }
+};
+
+export const leerTareaPorId = async (req, res) => {
+  try {
+    const tareaEncontrada = await Tarea.findById(req.params.id);
+    if (!tareaEncontrada) {
+      return res
+        .status(404)
+        .json({ mensaje: "No se econtro la tarea que desea buscar" });
+    }
+    res.status(200).json(tareaEncontrada);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al encontrar tarea✖️" });
   }
 };
