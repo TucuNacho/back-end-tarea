@@ -14,6 +14,6 @@ export const crearTarea= async(req, res)=>{
         res.status(201).json({mensaje:'La tarea fue agregada correctamente'})
     } catch (error) {
         console.error(error)
-        resizeTo.status(500).json({mensaje:'La tarea no pudo crearse'})
+        res.status(500).json({mensaje:'La tarea no pudo crearse'})
     }
 }
