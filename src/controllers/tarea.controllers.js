@@ -6,22 +6,37 @@ export const test = (req, res) => {
 };
 
 export const leerTarea = async (req, res) => {
-    try {
-        const buscarTarea = await Tarea.find()
-        res.status(200).json(buscarTarea)
-    } catch (error) {
-        console.error(error)
-        res.status(500).json({mensaje: "La tarea no pudo ser encontrada"})
-    }
+  try {
+    const buscarTarea = await Tarea.find();
+    res.status(200).json(buscarTarea);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "La tarea no pudo ser encontrada" });
+  }
 };
 
-export const crearTarea= async(req, res)=>{
-    try {
-        const nuevaTarea = new Tarea(req.body)
-        await nuevaTarea.save()
-        res.status(201).json({mensaje:'La tarea fue agregada correctamente'})
-    } catch (error) {
-        console.error(error)
-        res.status(500).json({mensaje:'La tarea no pudo crearse'})
+export const crearTarea = async (req, res) => {
+  try {
+    const nuevaTarea = new Tarea(req.body);
+    await nuevaTarea.save();
+    res.status(201).json({ mensaje: "La tarea fue agregada correctamente" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "La tarea no pudo crearse" });
+  }
+};
+
+export const borrarTarrea = async (req, res) => {
+  try {
+    const eliminarTarea = await Tarea.findByIdAndDelete(req.params.id);
+    if (!eliminarTarea) {
+      return res
+        .status(404)
+        .json({ mensaje: "No se econtro la tarea que desea eliminar" });
     }
-}
+    res.status(200).json({ mensaje: "Tarea eliminida correctamente👍" });
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ mensaje: "Error al eliminar tarea✖️" });
+  }
+};
