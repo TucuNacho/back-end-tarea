@@ -5,7 +5,15 @@ export const test = (req, res) => {
   res.send("Hola desde back de tareas");
 };
 
-export const leerTarea = (req, res) => {};
+export const leerTarea = async (req, res) => {
+    try {
+        const buscarTarea = await Tarea.find()
+        res.status(200).json(buscarTarea)
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({mensaje: "La tarea no pudo ser encontrada"})
+    }
+};
 
 export const crearTarea= async(req, res)=>{
     try {
