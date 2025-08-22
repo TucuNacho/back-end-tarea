@@ -55,3 +55,19 @@ export const leerTareaPorId = async (req, res) => {
     res.status(500).json({ mensaje: "Error al encontrar tarea✖️" });
   }
 };
+
+export const editarTarea = async (req, res) => {
+  try {
+    const actualizarTarea = await Tarea.findByIdAndUpdate(
+      req.params.id,
+      req.body
+    );
+    if (!actualizarTarea) {
+      return res.status(404).json({ mensaje: "Tarea no encontrada a editar" });
+    }
+    res.status(200).json({ mensaje: "Tarea edita con exito 👍" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensaje: "Error al encontrar tarea✖️" });
+  }
+};
