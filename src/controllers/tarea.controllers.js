@@ -19,7 +19,7 @@ export const crearTarea = async (req, res) => {
   try {
     const nuevaTarea = new Tarea(req.body);
     await nuevaTarea.save();
-    res.status(201).json({ mensaje: "La tarea fue agregada correctamente" });
+    res.status(201).json(nuevaTarea);
   } catch (error) {
     console.error(error);
     res.status(500).json({ mensaje: "La tarea no pudo crearse" });
